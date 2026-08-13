@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ProofQuest — Do Something Worth Posting</title>
+<meta name="description" content="Daily real-world challenges built to get you off the scroll and into the story.">
+<style>
+:root{--bg:#0b0c10;--card:#15171e;--line:#292d38;--text:#f8f8f4;--muted:#9ca3b2;--lime:#d9ff45;--purple:#9d7cff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#251d45 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:0 20px}nav{height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.logo{font-weight:1000;font-size:23px;letter-spacing:-1px}.logo i{font-style:normal;color:var(--lime)}.stats{display:flex;gap:8px}.chip{font-size:12px;border:1px solid var(--line);background:#12141a;padding:8px 11px;border-radius:999px}
+.hero{text-align:center;padding:64px 0 35px}.eyebrow{font-size:12px;letter-spacing:.18em;font-weight:900;color:var(--lime)}h1{font-size:clamp(52px,9vw,96px);line-height:.91;letter-spacing:-5px;margin:13px auto 20px;max-width:900px}.hero p{max-width:640px;margin:auto;color:var(--muted);font-size:19px;line-height:1.55}
+.quest{max-width:760px;margin:15px auto 70px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,#181b23,#101218);padding:25px;box-shadow:0 30px 80px #0007}
+.questtop{display:flex;justify-content:space-between;align-items:center}.difficulty,.category{font-size:11px;font-weight:900;letter-spacing:.1em;padding:7px 10px;border-radius:999px}.difficulty{background:var(--lime);color:#111}.category{border:1px solid var(--line);color:var(--muted)}
+.quest h2{font-size:clamp(32px,6vw,56px);letter-spacing:-2.2px;line-height:1.02;margin:26px 0 12px}.quest p{color:var(--muted);font-size:15px;line-height:1.55}.reward{display:flex;justify-content:space-between;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:20px 0;font-size:13px}.reward strong{color:var(--lime)}
+.buttons{display:grid;grid-template-columns:2fr 1fr;gap:10px}button{border:0;border-radius:14px;padding:16px;font-weight:950;font-size:15px;cursor:pointer;background:var(--lime);color:#10110d}.alt{background:#222630;color:white;border:1px solid #303543}
+.complete{display:none;margin-top:15px;background:#111319;border:1px solid var(--line);padding:17px;border-radius:15px}.complete.show{display:block}.complete strong{color:var(--lime)}
+.section{padding:15px 0 80px}.section h3{text-align:center;font-size:32px;letter-spacing:-1.2px}.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:22px 0}.filter{width:auto;padding:9px 13px;font-size:12px;background:#171920;border:1px solid var(--line);color:#ccc}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;cursor:pointer;transition:.15s}.card:hover{transform:translateY(-2px);border-color:#4a5060}.card .num{color:#72798a;font-size:11px;font-weight:900}.card h4{font-size:18px;margin:10px 0 8px}.card p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px}.how div{padding:20px;border-top:1px solid var(--line)}.how b{font-size:18px}.how p{font-size:14px;color:var(--muted);line-height:1.5}
+footer{text-align:center;border-top:1px solid var(--line);padding:30px 0 50px;color:#707785;font-size:12px}
+@media(max-width:700px){h1{letter-spacing:-3px}.cards,.how{grid-template-columns:1fr}.buttons{grid-template-columns:1fr}.hero{padding-top:45px}.stats .chip:first-child{display:none}}
+</style>
+</head>
+<body><div class="wrap">
+<nav><div class="logo">PROOF<i>QUEST</i></div><div class="stats"><div class="chip">🔥 <span id="streak">0</span> streak</div><div class="chip">⚡ <span id="points">0</span> XP</div></div></nav>
+<section class="hero"><div class="eyebrow">STOP SCROLLING. START DOING.</div><h1>Do something worth posting.</h1><p>One weird, funny or surprisingly difficult real-world challenge. Complete it. Prove it. Build your streak.</p></section>
+<section class="quest">
+<div class="questtop"><span class="difficulty" id="difficulty">EASY · +50 XP</span><span class="category" id="category">CREATIVE</span></div>
+<h2 id="questTitle">Recreate a famous movie scene using only things in your house.</h2>
+<p id="questDesc">No buying props. No professional equipment. The worse the household objects are, the better.</p>
+<div class="reward"><span>TIME LIMIT <strong id="time">24 HOURS</strong></span><span>PROOF <strong id="proof">PHOTO / VIDEO</strong></span></div>
+<div class="buttons"><button id="accept">I DID IT — CLAIM XP</button><button class="alt" id="reroll">↻ NEW QUEST</button></div>
+<div class="complete" id="complete"><strong>QUEST COMPLETE.</strong> Your XP and streak were saved on this device. Screenshot your result and challenge somebody else.</div>
+</section>
+
+<section class="section"><h3>Pick your chaos.</h3><div class="filters">
+<button class="filter" data-cat="ALL">ALL</button><button class="filter" data-cat="CREATIVE">🎨 CREATIVE</button><button class="filter" data-cat="SOCIAL">🤝 SOCIAL</button><button class="filter" data-cat="OUTSIDE">🌎 OUTSIDE</button><button class="filter" data-cat="SKILL">🧠 SKILL</button><button class="filter" data-cat="CHAOS">⚡ CHAOS</button>
+</div><div class="cards" id="cards"></div></section>
+
+<section class="section"><h3>How ProofQuest works</h3><div class="how">
+<div><b>01 — Get the quest</b><p>Choose a challenge that gives you a reason to leave the feed and actually do something.</p></div>
+<div><b>02 — Bring proof</b><p>Capture the result with a photo or short video. The challenge becomes the content.</p></div>
+<div><b>03 — Build the streak</b><p>Earn XP, keep your streak alive and send the challenge to someone who thinks they can beat you.</p></div>
+</div></section>
+<footer>PROOFQUEST · The internet gave you the challenge. Real life gets the proof.</footer>
+</div>
+<script>
+const quests=[
+{t:"Recreate a famous movie scene using only things in your house.",d:"No buying props. No professional equipment. The worse the household objects are, the better.",c:"CREATIVE",x:50,l:"EASY",p:"PHOTO / VIDEO"},
+{t:"Ask someone to draw a dinosaur in 30 seconds.",d:"No reference image. Save the masterpiece. Bonus respect if they name it.",c:"SOCIAL",x:50,l:"EASY",p:"PHOTO"},
+{t:"Find an object older than you without entering a store.",d:"Family homes, libraries, public spaces and forgotten drawers are fair game.",c:"OUTSIDE",x:100,l:"MEDIUM",p:"PHOTO"},
+{t:"Make a recognizable animal from five random household objects.",d:"Exactly five objects. No drawing eyes or faces onto them.",c:"CREATIVE",x:100,l:"MEDIUM",p:"PHOTO"},
+{t:"Learn one harmless party trick in under 60 minutes.",d:"Pick something you cannot already do. Film the final successful attempt.",c:"SKILL",x:150,l:"HARD",p:"VIDEO"},
+{t:"Find three things in public that accidentally look like faces.",d:"No staged objects. Buildings, cars, food and signs all count.",c:"OUTSIDE",x:50,l:"EASY",p:"3 PHOTOS"},
+{t:"Build the tallest free-standing tower you can from 20 pieces of paper.",d:"Paper only. No tape, glue, staples, walls or furniture for support.",c:"SKILL",x:100,l:"MEDIUM",p:"PHOTO / VIDEO"},
+{t:"Create a restaurant-quality plate from the cheapest meal already in your kitchen.",d:"Presentation matters. Make ordinary food look absurdly expensive.",c:"CREATIVE",x:100,l:"MEDIUM",p:"PHOTO"},
+{t:"Wear two completely mismatched socks for the rest of the day.",d:"They must be visibly different. Going outside earns imaginary bonus points.",c:"CHAOS",x:50,l:"EASY",p:"PHOTO"},
+{t:"Write a six-word story that makes someone laugh.",d:"Exactly six words. Test it on one real human before claiming the quest.",c:"SOCIAL",x:100,l:"MEDIUM",p:"TEXT / REACTION"},
+{t:"Take a photo that looks impossible without using AI.",d:"Forced perspective, reflections, timing and practical tricks are allowed. Editing objects in is not.",c:"CREATIVE",x:150,l:"HARD",p:"PHOTO"},
+{t:"Go 30 minutes outside without checking your phone.",d:"Use the phone only to take one proof photo at the end. No scrolling, messaging or calls.",c:"OUTSIDE",x:100,l:"MEDIUM",p:"PHOTO"}
+];
+let current=0, filter="ALL";
+const $=id=>document.getElementById(id);
+function loadStats(){$("points").textContent=localStorage.getItem("pqxp")||0;$("streak").textContent=localStorage.getItem("pqstreak")||0}
+function show(q){current=quests.indexOf(q);$("questTitle").textContent=q.t;$("questDesc").textContent=q.d;$("category").textContent=q.c;$("difficulty").textContent=q.l+" · +"+q.x+" XP";$("proof").textContent=q.p;$("complete").classList.remove("show");window.scrollTo({top:document.querySelector(".quest").offsetTop-20,behavior:"smooth"})}
+function render(){let list=quests.filter(q=>filter==="ALL"||q.c===filter);$("cards").innerHTML=list.map((q,i)=>`<div class="card" data-title="${q.t.replace(/"/g,'&quot;')}"><div class="num">${q.c} · +${q.x} XP</div><h4>${q.t}</h4><p>${q.d}</p></div>`).join("");document.querySelectorAll(".card").forEach(el=>el.onclick=()=>show(quests.find(q=>q.t===el.dataset.title)))}
+$("reroll").onclick=()=>{let n;do{n=Math.floor(Math.random()*quests.length)}while(n===current);show(quests[n])}
+$("accept").onclick=()=>{let q=quests[current],xp=+(localStorage.getItem("pqxp")||0),st=+(localStorage.getItem("pqstreak")||0);localStorage.setItem("pqxp",xp+q.x);localStorage.setItem("pqstreak",st+1);loadStats();$("complete").classList.add("show")}
+document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{filter=b.dataset.cat;render()})
+loadStats();render();
+</script></body></html>
